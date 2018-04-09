@@ -5,6 +5,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+			purchaseLocation: '',
+      orderNumber: '',
+      poOrSerialNumber: '',
+      retailer: '',
+      yearPurchased: '',
+      firstName: '',
+      lastName: '',
+      streetAddress: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      phoneOne: '',
+      phoneTwo: '',
+      emailOne: '',
+      emailTwo: '',
+      emailConfirmation: '',
+      notes: ''
     };
 
   }
@@ -16,7 +33,7 @@ class App extends Component {
           <h1>Service Information</h1>
           <label>
             <p>Where did you purchase your Pella products?</p>
-            <select>
+            <select value={this.state.purchaseLocation}>
               <option value=""></option>
               <option value="Pella Store">Pella Store</option>
               <option value="Lowes">Lowes</option>
@@ -25,21 +42,21 @@ class App extends Component {
           </label>
           <label>
             <p>Order# (if you have this information available)</p>
-            <input type="text" />
+            <input type="text" value={this.state.orderNumber} />
           </label>
           <label>
             <p>If you can not provide a purchase order # or a serial #, please contact the Lowes store from which you purchased your products or call Pella's National Accounts at 1-800-374-4578</p>
             <p>Pella Southeast can not provide this information, as it is not in our system.</p>
             <p>Purchase Order# or Serial#</p>
-            <input type="text" />
+            <input type="text" value={this.state.poOrSerialNumber} />
           </label>
           <label>
             <p>Please specify the retailer from which you purchased your products.</p>
-            <input type="text" />
+            <input type="text" value={this.state.retailer} />
           </label>
           <label>
             <p>In what year did you buy your Pella products?</p>
-            <input type="text" />
+            <input type="text" value={this.state.yearPurchased} />
           </label>
           <label>
             <p>Describe the problems you are having with each product unit. Click the "Add Item" button when completing a description.</p>
@@ -69,13 +86,14 @@ class App extends Component {
           <h1>Contact Information</h1>
           <label>
             <p>Full Name</p>
-            <input type="text" /><input type="text" />
+            <input type="text" value={this.state.firstName} />
+            <input type="text" value={this.state.lastName} />
           </label>
           <label>
             <p>Address</p>
-            <input type="text" />
-            <input type="text" />
-						<select>
+            <input type="text" value={this.state.streetAddress}/>
+            <input type="text" value={this.state.city} />
+						<select value={this.state.state}>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>
@@ -128,30 +146,31 @@ class App extends Component {
 							<option value="WI">Wisconsin</option>
 							<option value="WY">Wyoming</option>
 						</select>
+            <input type="text" value={this.state.zipCode}>
           </label>
           <label>
             <p>Phone Number</p>
-            <input type="text" />
+            <input type="text" value={this.state.phoneOne} />
           </label>
           <label>
             <p>Phone Number</p>
-            <input type="text" />
+            <input type="text" value={this.state.phoneTwo} />
           </label>
           <label>
             <p>Email</p>
-            <input type="text" />
+            <input type="text" value={this.state.emailOne} />
           </label>
           <label>
             <p>Email</p>
-            <input type="text" />
+            <input type="text" value={this.state.emailTwo} />
           </label>
           <label>
             <p>If you are not the customer and want a confirmation email, enter your email address here:</p>
-            <input type="text" />
+            <input type="text" value={this.state.emailConfirmation} />
           </label>
           <label>
             <p>Additional Notes</p>
-            <textarea></textarea>
+            <textarea value={this.state.notes}></textarea>
           </label>
           <br />
           <input type="submit" value="Submit" />
