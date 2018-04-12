@@ -23,7 +23,16 @@ class App extends Component {
       emailConfirmation: '',
       notes: ''
     };
+    this.handleChange = this.handleChange.bind(this);
 
+  }
+
+  handleChange(e) {
+    const target = e.target;
+    const name = target.name;
+    this.setState({
+      [name]: target.value
+    });
   }
 
   render() {
@@ -42,21 +51,39 @@ class App extends Component {
           </label>
           <label>
             <p>Order# (if you have this information available)</p>
-            <input type="text" value={this.state.orderNumber} />
+            <input type="text" name="orderNumber"
+              value={this.state.orderNumber}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>If you can not provide a purchase order # or a serial #, please contact the Lowes store from which you purchased your products or call Pella's National Accounts at 1-800-374-4578</p>
             <p>Pella Southeast can not provide this information, as it is not in our system.</p>
             <p>Purchase Order# or Serial#</p>
-            <input type="text" value={this.state.poOrSerialNumber} />
+            <input
+              type="text"
+              name="poOrSerialNumber" 
+              value={this.state.poOrSerialNumber}
+              onChange={this.handleChange}
+              />
           </label>
           <label>
             <p>Please specify the retailer from which you purchased your products.</p>
-            <input type="text" value={this.state.retailer} />
+            <input
+              type="text"
+              name="retailer"
+              value={this.state.retailer}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>In what year did you buy your Pella products?</p>
-            <input type="text" value={this.state.yearPurchased} />
+            <input
+              type="text"
+              name="yearPurchased"
+              value={this.state.yearPurchased}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Describe the problems you are having with each product unit. Click the "Add Item" button when completing a description.</p>
@@ -86,13 +113,33 @@ class App extends Component {
           <h1>Contact Information</h1>
           <label>
             <p>Full Name</p>
-            <input type="text" value={this.state.firstName} />
-            <input type="text" value={this.state.lastName} />
+            <input
+              type="text"
+              name="firstName"
+              value={this.state.firstName}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={this.state.lastName}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Address</p>
-            <input type="text" value={this.state.streetAddress}/>
-            <input type="text" value={this.state.city} />
+            <input
+              type="text"
+              name="streetAddress"
+              value={this.state.streetAddress}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="city"
+              value={this.state.city}
+              onChange={this.handleChange}
+            />
 						<select value={this.state.state}>
 							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
@@ -146,31 +193,64 @@ class App extends Component {
 							<option value="WI">Wisconsin</option>
 							<option value="WY">Wyoming</option>
 						</select>
-            <input type="text" value={this.state.zipCode}>
+            <input
+              type="text"
+              name="zipCode"
+              value={this.state.zipCode}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Phone Number</p>
-            <input type="text" value={this.state.phoneOne} />
+            <input
+              type="text"
+              name="phoneOne"
+              value={this.state.phoneOne}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Phone Number</p>
-            <input type="text" value={this.state.phoneTwo} />
+            <input
+              type="text"
+              name="phoneTwo"
+              value={this.state.phoneTwo}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Email</p>
-            <input type="text" value={this.state.emailOne} />
+            <input
+              type="text"
+              name="emailOne"
+              value={this.state.emailOne}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Email</p>
-            <input type="text" value={this.state.emailTwo} />
+            <input
+              type="text"
+              name="emailTwo"
+              value={this.state.emailTwo}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>If you are not the customer and want a confirmation email, enter your email address here:</p>
-            <input type="text" value={this.state.emailConfirmation} />
+            <input
+              type="text"
+              name="emailConfirmation"
+              value={this.state.emailConfirmation}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             <p>Additional Notes</p>
-            <textarea value={this.state.notes}></textarea>
+            <textarea
+              value={this.state.notes}
+              name="notes"
+            />
           </label>
           <br />
           <input type="submit" value="Submit" />
