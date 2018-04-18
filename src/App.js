@@ -21,9 +21,16 @@ class App extends Component {
       emailOne: '',
       emailTwo: '',
       emailConfirmation: '',
-      notes: ''
+      notes: '',
+      images: '',
+      lineItems: [],
+      _lineItemQty: '',
+      _lineItemLocation: '',
+      _lineItemDescription: ''
     };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleTableSubmit = this.handleTableSubmit.bind(this);
 
   }
 
@@ -35,6 +42,39 @@ class App extends Component {
     });
   }
 
+  handleTableSubmit(e) {
+    e.preventDefault();
+    this.setState(prevState => {
+      const arr = [this.state._lineItemQty, this.state._lineItemLocation, this.state._lineItemDescription];
+      return {
+        lineItems: prevState.lineItems.concat([arr]),
+        _lineItemQty: '',
+        _lineItemLocation: '',
+        _lineItemDescription: ''
+      }
+    });
+  }
+
+  renderLineItems(lineItems) {
+    if (Array.isArray(lineItems)) {
+      if (lineItems.length > 0) {
+        return (
+          lineItems.map((line) => {
+            return (
+              <tr>
+                <td>{line[0]}</td>
+                <td>{line[1]}</td>
+                <td>{line[2]}</td>
+              </tr>
+            );
+          })
+        );
+      } else {
+        return;
+      }
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -42,7 +82,11 @@ class App extends Component {
           <h1>Service Information</h1>
           <label>
             <p>Where did you purchase your Pella products?</p>
-            <select value={this.state.purchaseLocation}>
+            <select
+              name="purchaseLocation"
+              value={this.state.purchaseLocation}
+              onChange={this.handleChange}
+            >
               <option value=""></option>
               <option value="Pella Store">Pella Store</option>
               <option value="Lowes">Lowes</option>
@@ -51,7 +95,9 @@ class App extends Component {
           </label>
           <label>
             <p>Order# (if you have this information available)</p>
-            <input type="text" name="orderNumber"
+            <input
+              type="text"
+              name="orderNumber"
               value={this.state.orderNumber}
               onChange={this.handleChange}
             />
@@ -62,7 +108,7 @@ class App extends Component {
             <p>Purchase Order# or Serial#</p>
             <input
               type="text"
-              name="poOrSerialNumber" 
+              name="poOrSerialNumber"
               value={this.state.poOrSerialNumber}
               onChange={this.handleChange}
               />
@@ -97,18 +143,19 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
+                {this.renderLineItems(this.state.lineItems)}
                 <tr>
-                  <td><input type="text" /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="submit" value="Add Item" /></td>
+                  <td><input type="text" name="_lineItemQty" value={this.state._lineItemQty} onChange={this.handleChange} /></td>
+                  <td><input type="text" name="_lineItemLocation" value={this.state._lineItemLocation} onChange={this.handleChange} /></td>
+                  <td><input type="text" name="_lineItemDescription" value={this.state._lineItemDescription} onChange={this.handleChange} /></td>
+                  <td><button onClick={this.handleTableSubmit}>Add Item</button></td>
                 </tr>
               </tbody>
             </table>
           </label>
           <label>
             <p>Upload images showing the problems you are having with your products</p>
-            <input type="file" />
+            <input type="file" name="images" onChange={this.handleChange} />
           </label>
           <h1>Contact Information</h1>
           <label>
@@ -140,58 +187,18 @@ class App extends Component {
               value={this.state.city}
               onChange={this.handleChange}
             />
-						<select value={this.state.state}>
-							<option value="AL">Alabama</option>
-							<option value="AK">Alaska</option>
-							<option value="AZ">Arizona</option>
-							<option value="AR">Arkansas</option>
-							<option value="CA">California</option>
-							<option value="CO">Colorado</option>
-							<option value="CT">Connecticut</option>
-							<option value="DE">Delaware</option>
-							<option value="DC">District Of Columbia</option>
-							<option value="FL">Florida</option>
+            <select
+              value={this.state.state}
+              name="state"
+              onChange={this.handleChange}
+            >
+							<option value=""></option>
 							<option value="GA">Georgia</option>
-							<option value="HI">Hawaii</option>
-							<option value="ID">Idaho</option>
-							<option value="IL">Illinois</option>
-							<option value="IN">Indiana</option>
-							<option value="IA">Iowa</option>
-							<option value="KS">Kansas</option>
-							<option value="KY">Kentucky</option>
-							<option value="LA">Louisiana</option>
-							<option value="ME">Maine</option>
-							<option value="MD">Maryland</option>
-							<option value="MA">Massachusetts</option>
-							<option value="MI">Michigan</option>
-							<option value="MN">Minnesota</option>
-							<option value="MS">Mississippi</option>
-							<option value="MO">Missouri</option>
-							<option value="MT">Montana</option>
-							<option value="NE">Nebraska</option>
-							<option value="NV">Nevada</option>
-							<option value="NH">New Hampshire</option>
-							<option value="NJ">New Jersey</option>
-							<option value="NM">New Mexico</option>
-							<option value="NY">New York</option>
 							<option value="NC">North Carolina</option>
-							<option value="ND">North Dakota</option>
-							<option value="OH">Ohio</option>
-							<option value="OK">Oklahoma</option>
-							<option value="OR">Oregon</option>
-							<option value="PA">Pennsylvania</option>
-							<option value="RI">Rhode Island</option>
 							<option value="SC">South Carolina</option>
-							<option value="SD">South Dakota</option>
 							<option value="TN">Tennessee</option>
-							<option value="TX">Texas</option>
-							<option value="UT">Utah</option>
-							<option value="VT">Vermont</option>
 							<option value="VA">Virginia</option>
-							<option value="WA">Washington</option>
 							<option value="WV">West Virginia</option>
-							<option value="WI">Wisconsin</option>
-							<option value="WY">Wyoming</option>
 						</select>
             <input
               type="text"
@@ -250,6 +257,7 @@ class App extends Component {
             <textarea
               value={this.state.notes}
               name="notes"
+              onChange={this.handleChange}
             />
           </label>
           <br />
