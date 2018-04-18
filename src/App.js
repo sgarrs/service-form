@@ -31,6 +31,7 @@ class App extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleTableSubmit = this.handleTableSubmit.bind(this);
+    this.handleRemoveLineItem = this.handleRemoveLineItem.bind(this);
 
   }
 
@@ -55,16 +56,27 @@ class App extends Component {
     });
   }
 
+  handleRemoveLineItem(e, index) {
+    e.preventDefault();
+    this.setState((prevState) => {
+      const l = prevState.lineItems;
+      return {
+        lineItems: l.slice(0, index).concat(l.slice(index + 1))
+      }
+    });
+  }
+
   renderLineItems(lineItems) {
     if (Array.isArray(lineItems)) {
       if (lineItems.length > 0) {
         return (
-          lineItems.map((line) => {
+          lineItems.map((line, index) => {
             return (
-              <tr>
+              <tr key={`line-item-${index}`}>
                 <td>{line[0]}</td>
                 <td>{line[1]}</td>
                 <td>{line[2]}</td>
+                <td><button onClick={(e) => this.handleRemoveLineItem(e, index)}>-</button></td>
               </tr>
             );
           })
