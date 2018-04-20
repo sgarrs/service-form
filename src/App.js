@@ -72,11 +72,11 @@ class App extends Component {
         return (
           lineItems.map((line, index) => {
             return (
-              <tr key={`line-item-${index}`}>
-                <td>{line[0]}</td>
-                <td>{line[1]}</td>
-                <td>{line[2]}</td>
-                <td><button onClick={(e) => this.handleRemoveLineItem(e, index)}>-</button></td>
+              <tr className="lineItemList" key={`line-item-${index}`} style={{background: index % 2 ? 'lightgray' : ''}}>
+                <td className="lineItemQty lineItemCell">{line[0]}</td>
+                <td className="lineItemLocation lineItemCell">{line[1]}</td>
+                <td className="lineItemDescription lineItemCell">{line[2]}</td>
+                <td className="lineItemRemove"><button onClick={(e) => this.handleRemoveLineItem(e, index)}>Remove</button></td>
               </tr>
             );
           })
@@ -148,19 +148,19 @@ class App extends Component {
             <table>
               <thead>
                 <tr>
-                  <td>Quantity</td>
-                  <td>Location</td>
-                  <td>Description</td>
-                  <td></td>
+                  <td className="lineItemQty">Qty</td>
+                  <td className="lineItemLocation">Location</td>
+                  <td className="lineItemDescription">Description</td>
+                  <td className="lineItemAdd">&nbsp;</td>
                 </tr>
               </thead>
               <tbody>
                 {this.renderLineItems(this.state.lineItems)}
                 <tr>
-                  <td><input type="text" name="_lineItemQty" value={this.state._lineItemQty} onChange={this.handleChange} /></td>
-                  <td><input type="text" name="_lineItemLocation" value={this.state._lineItemLocation} onChange={this.handleChange} /></td>
-                  <td><input type="text" name="_lineItemDescription" value={this.state._lineItemDescription} onChange={this.handleChange} /></td>
-                  <td><button onClick={this.handleTableSubmit}>Add Item</button></td>
+                  <td className="lineItemQty"><input type="number" name="_lineItemQty" value={this.state._lineItemQty} min="0" onChange={this.handleChange} /></td>
+                  <td className="lineItemLocation"><input type="text" name="_lineItemLocation" value={this.state._lineItemLocation} onChange={this.handleChange} /></td>
+                  <td className="lineItemDescription"><input type="text" name="_lineItemDescription" value={this.state._lineItemDescription} onChange={this.handleChange} /></td>
+                  <td className="lineItemAdd"><button onClick={this.handleTableSubmit}>Add Item</button></td>
                 </tr>
               </tbody>
             </table>
@@ -172,88 +172,99 @@ class App extends Component {
           <h1>Contact Information</h1>
           <label>
             <p>Full Name</p>
-            <input
-              type="text"
-              name="firstName"
-              value={this.state.firstName}
-              onChange={this.handleChange}
-            />
-            <input
-              type="text"
-              name="lastName"
-              value={this.state.lastName}
-              onChange={this.handleChange}
-            />
+            <div className="fullName">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={this.state.firstName}
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={this.state.lastName}
+                onChange={this.handleChange}
+              />
+            </div>
           </label>
           <label>
             <p>Address</p>
             <input
               type="text"
               name="streetAddress"
+              placeholder="Street Address"
               value={this.state.streetAddress}
               onChange={this.handleChange}
             />
-            <input
-              type="text"
-              name="city"
-              value={this.state.city}
-              onChange={this.handleChange}
-            />
-            <select
-              value={this.state.state}
-              name="state"
-              onChange={this.handleChange}
-            >
-							<option value=""></option>
-							<option value="GA">Georgia</option>
-							<option value="NC">North Carolina</option>
-							<option value="SC">South Carolina</option>
-							<option value="TN">Tennessee</option>
-							<option value="VA">Virginia</option>
-							<option value="WV">West Virginia</option>
-						</select>
-            <input
-              type="text"
-              name="zipCode"
-              value={this.state.zipCode}
-              onChange={this.handleChange}
-            />
+            <div className="addressSecondLine">
+              <input
+                type="text"
+                name="city"
+                placeholder="City"
+                value={this.state.city}
+                onChange={this.handleChange}
+              />
+              <select
+                value={this.state.state}
+                name="state"
+                onChange={this.handleChange}
+              >
+                <option value=""></option>
+                <option value="GA">Georgia</option>
+                <option value="NC">North Carolina</option>
+                <option value="SC">South Carolina</option>
+                <option value="TN">Tennessee</option>
+                <option value="VA">Virginia</option>
+                <option value="WV">West Virginia</option>
+              </select>
+              <input
+                type="text"
+                name="zipCode"
+                placeholder="Zipcode"
+                value={this.state.zipCode}
+                onChange={this.handleChange}
+              />
+            </div>
           </label>
           <label>
             <p>Phone Number</p>
-            <input
-              type="text"
-              name="phoneOne"
-              value={this.state.phoneOne}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            <p>Phone Number</p>
-            <input
-              type="text"
-              name="phoneTwo"
-              value={this.state.phoneTwo}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            <p>Email</p>
-            <input
-              type="text"
-              name="emailOne"
-              value={this.state.emailOne}
-              onChange={this.handleChange}
-            />
+            <div className="phoneNumberLine">
+              <input
+                type="text"
+                name="phoneOne"
+                placeholder="Phone Number"
+                value={this.state.phoneOne}
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                name="phoneTwo"
+                placeholder="Phone Number"
+                value={this.state.phoneTwo}
+                onChange={this.handleChange}
+              />
+            </div>
           </label>
           <label>
             <p>Email</p>
-            <input
-              type="text"
-              name="emailTwo"
-              value={this.state.emailTwo}
-              onChange={this.handleChange}
-            />
+            <div className="emailLine">
+              <input
+                type="text"
+                name="emailOne"
+                placeholder="Email Address"
+                value={this.state.emailOne}
+                onChange={this.handleChange}
+              />
+              <input
+                type="text"
+                name="emailTwo"
+                placeholder="Email Address"
+                value={this.state.emailTwo}
+                onChange={this.handleChange}
+              />
+            </div>
           </label>
           <label>
             <p>If you are not the customer and want a confirmation email, enter your email address here:</p>
